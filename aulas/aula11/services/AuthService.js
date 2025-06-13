@@ -11,8 +11,26 @@ async function signIn(credenciais) {
     );
     return response.data;
   } catch (error) {
+    const {
+      error: { message },
+    } = error.response.data;
+    if (message === "INVALID_LOGIN_CREDENTIALS") {
+      throw new Error("Usuario/Senha invalidos");
+    }
     throw error;
   }
 }
 
-export { signIn };
+async function signUp(credenciais) {
+  try {
+    const response = await axios.post(
+      `${API_URL}:signUp?key=${API_KEY}`,
+      credenciais
+    );
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+}
+
+export { signIn, signUp };

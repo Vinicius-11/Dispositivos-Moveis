@@ -20,8 +20,19 @@ const AuthProvider = ({ children }) => {
     setUsuario({ login: null, logado: false });
   }
 
+
+  const registrar = async ({email, senha}) => {
+    try {
+        await AuthService.signUp({email: email, password: senha, returnSecureToken: true});
+        setUsuario({login: email, logado: true});
+        setErro("");
+    } catch(error) {
+        setErro(`Deu ruim: ${error.message}`);
+    }
+  }
+
   return (
-    <AuthContext.Provider value={{ usuario, erro, login, logout }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ usuario, erro, login, logout, registrar }}>{children}</AuthContext.Provider>
   );
 };
 

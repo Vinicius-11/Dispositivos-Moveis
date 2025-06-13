@@ -59,7 +59,4 @@ function Login({ navigation }) {
   );
 }
 
-
-fd
-
 export default Login;
